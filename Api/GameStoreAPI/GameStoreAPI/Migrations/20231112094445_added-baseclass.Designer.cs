@@ -3,6 +3,7 @@ using System;
 using GameStoreAPi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,14 +11,51 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStoreAPi.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContexModelSnapshot : ModelSnapshot
+    [Migration("20231112094445_added-baseclass")]
+    partial class addedbaseclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("GameStoreAPi.Modals.SKU.SKU", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("barcode")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("number")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("stock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("SKUs");
+                });
 
             modelBuilder.Entity("GameStoreAPi.Modals.User.Users", b =>
                 {
@@ -72,15 +110,12 @@ namespace GameStoreAPi.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<string>("firstname")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("lastname")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("password")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

@@ -51,6 +51,23 @@ namespace GameStoreAPi.Services
             return (1, "User created successfully!");
         }
 
+        public async Task<(int, string)> ResetPassword(String UserId, String newPassword)
+        {
+            var User = await userManager.FindByIdAsync(UserId);
+            if(User == null)
+            {
+                return (0, "User does not exists.");
+            }
+
+            string token = await userManager.GeneratePasswordResetTokenAsync(User);
+            var result = await userManager.ResetPasswordAsync(User, token, newPassword);
+            if (result.Succeeded)
+            {
+                return (1, "password updated");
+            }
+            return (0, "unexcpeted error happend please try again later!");
+        }
+
         public async Task<(int, string)> Login(LoginModal modal)
         {
             var User = await userManager.FindByNameAsync(modal.UserName);

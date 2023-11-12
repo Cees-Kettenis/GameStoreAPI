@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStoreAPi.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231015031942_init-db")]
-    partial class Initdb
+    [Migration("20231112032206_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,35 @@ namespace GameStoreAPi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("GameStoreAPi.Modals.SKU.SKU", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("barcode")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("number")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("stock")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("SKUs");
+                });
 
             modelBuilder.Entity("GameStoreAPi.Modals.User.Users", b =>
                 {
@@ -75,15 +104,12 @@ namespace GameStoreAPi.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<string>("firstname")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("lastname")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("password")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

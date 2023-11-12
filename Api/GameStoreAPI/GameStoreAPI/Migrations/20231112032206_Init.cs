@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace GameStoreAPi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initdb : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,9 +35,9 @@ namespace GameStoreAPi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
-                    firstname = table.Column<string>(type: "longtext", nullable: false),
-                    lastname = table.Column<string>(type: "longtext", nullable: false),
-                    password = table.Column<string>(type: "longtext", nullable: false),
+                    firstname = table.Column<string>(type: "longtext", nullable: true),
+                    lastname = table.Column<string>(type: "longtext", nullable: true),
+                    password = table.Column<string>(type: "longtext", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
@@ -56,6 +56,24 @@ namespace GameStoreAPi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SKUs",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    number = table.Column<string>(type: "longtext", nullable: true),
+                    name = table.Column<string>(type: "longtext", nullable: true),
+                    barcode = table.Column<string>(type: "longtext", nullable: true),
+                    description = table.Column<string>(type: "longtext", nullable: true),
+                    rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    stock = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SKUs", x => x.id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -225,6 +243,9 @@ namespace GameStoreAPi.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "SKUs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

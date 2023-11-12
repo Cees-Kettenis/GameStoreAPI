@@ -1,7 +1,6 @@
 using GameStoreAPi.Data;
 using GameStoreAPi.Modals.User;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //connect to the db to allow migrations
-var ConnectionString = String.Format("server={0};user={1};password={2};database={3}", "localhost", "root", "Dagboeka12.", "gamestore");
+var ConnectionString = String.Format("server={0};user={1};password={2};database={3}", "localhost", "root", "Abc@1234", "gamestore");
 builder.Services.AddDbContext<AppDBContext>(options => options.UseMySQL(ConnectionString));
 
 //setup the api security.
